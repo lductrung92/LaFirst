@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('test', function(){
+    $theloai = App\TheLoai::find(1);
+    foreach($theloai->loaitin as $loaitin){
+        echo $loaitin->Ten. '<br />';
+    }
+});
