@@ -46,6 +46,6 @@ class TheLoaiController extends Controller
 
      return redirect('admin/theloai/danhsach')->with('xoa', 'Xóa ' . $theloai->Ten . ' thành công');
    }
-   ádsadsadsadsadsa
+   
    
 }
