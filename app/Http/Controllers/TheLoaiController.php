@@ -39,5 +39,12 @@ class TheLoaiController extends Controller
        $theloai = TheLoai::find($id);
        return view('admin.theloai.sua', ['theloai'=> $theloai]);
    }
+
+   public function getXoa($id){
+     $theloai = TheLoai::find($id);
+     $theloai->delete();
+
+     return redirect('admin/theloai/danhsach')->with('xoa', 'Xóa ' . $theloai->Ten . ' thành công');
+   }
    
 }
