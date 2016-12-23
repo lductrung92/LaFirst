@@ -27,14 +27,33 @@ Route::group(['prefix' => 'admin'], function() {
 
         Route::get('xoa/{id}', 'TheLoaiController@getXoa');
     });
+
     Route::group(['prefix' => 'loaitin'], function() {
-        Route::get('danhsach', 'LoaiTinController@getLoaiTin');
-        Route::get('sua', 'LoaiTinController@getLoaiTin');
-        Route::get('them', 'LoaiTinController@getLoaiTin');
+        Route::get('danhsach', 'LoaiTinController@getDanhSach');
+
+        Route::get('sua/{id}', 'LoaiTinController@getSua');
+        Route::post('sua/{id}', 'LoaiTinController@postSua');
+
+        Route::get('them', 'LoaiTinController@getThem');
+        Route::post('them', 'LoaiTinController@postThem');
+
+        Route::get('xoa/{id}', 'LoaiTinController@getXoa');
     });
+
     Route::group(['prefix' => 'tintuc'], function() {
-        Route::get('danhsach', 'TinTucController@getTinTuc');
-        Route::get('sua', 'TinTucController@getTinTuc');
-        Route::get('them', 'TinTucController@geTinTuc');
-    });   
+        Route::get('danhsach', 'TinTucController@getDanhSach');
+
+        Route::get('sua/{id}', 'TinTucController@getSua');
+        Route::post('sua/{id}', 'TinTucController@postSua');
+
+        Route::get('them', 'TinTucController@getThem');
+        Route::post('them', 'TinTucController@postThem');
+
+        Route::get('xoa/{id}', 'TinTucController@getXoa');
+    });
+
+    Route::group(['prefix' => 'ajax'], function() {
+        Route::get('loaitin/{idTheLoai}', 'AjaxController@getLoaiTin');
+    });
+
 });

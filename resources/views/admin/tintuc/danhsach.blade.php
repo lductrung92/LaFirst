@@ -5,39 +5,55 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Category
-                        <small>List</small>
+                    <h1 class="page-header">Tin tức
+                        <small>danh sách</small>
                     </h1>
                 </div>
+                @if(session('thongbao'))
+                    <div class="col-lg-12">
+                        <div class="alert alert-success">
+                            {{ session('thongbao') }}
+                        </div>
+                    </div>
+                @endif
+                @if(session('xoa'))
+                    <div class="col-lg-12">
+                        <div class="alert alert-success">
+                            {{ session('xoa') }}
+                        </div>
+                    </div>
+                @endif
                 <!-- /.col-lg-12 -->
                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                     <thead>
                         <tr align="center">
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Category Parent</th>
-                            <th>Status</th>
+                            <th>Tiêu đề</th>
+                            <th>Tóm tắt</th>
+                            <th>Thể loại</th>
+                            <th>Loại tin</th>
+                            <th>Số lượt xem</th>
+                            <th>Nổi bật</th>
                             <th>Delete</th>
                             <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($tintuc as $tt)
                         <tr class="odd gradeX" align="center">
-                            <td>1</td>
-                            <td>Tin Tức</td>
-                            <td>None</td>
-                            <td>Hiện</td>
-                            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="#"> Delete</a></td>
-                            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="#">Edit</a></td>
+                            <th>{{ $tt->id }}</th>
+                            <th><p>{{ $tt->TieuDe }}</p>
+                                <img width="100px" src="upload/tintuc/{{ $tt->Hinh }}"/>
+                            </th>
+                            <th>{{ $tt->TomTat }}</th>
+                            <th>{{ $tt->loaitin->theloai->Ten }}</th>
+                            <th>{{ $tt->loaitin->Ten }}</th>
+                            <th>{{ $tt->SoLuotXem }}</th>
+                            <th>{{ $tt->NoiBat }}</th>
+                            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="admin/tintuc/xoa/{{ $tt->id }}"> Delete</a></td>
+                            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="admin/tintuc/sua/{{ $tt->id }}">Edit</a></td>
                         </tr>
-                        <tr class="even gradeC" align="center">
-                            <td>2</td>
-                            <td>Bóng Đá</td>
-                            <td>Thể Thao</td>
-                            <td>Ẩn</td>
-                            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="#"> Delete</a></td>
-                            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="#">Edit</a></td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

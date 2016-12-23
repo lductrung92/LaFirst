@@ -9,7 +9,7 @@ class TinTuc extends Model
     protected $table = "tintuc";
 
     public function loaitin(){
-        return $this->belonsTo('App\LoaiTin', 'idLoaiTin', 'id');
+        return $this->belongsTo('App\LoaiTin', 'idLoaiTin', 'id');
     }
 
     public function comment(){
