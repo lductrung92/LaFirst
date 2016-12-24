@@ -25,7 +25,7 @@ class TinTucRequest extends FormRequest
     {
         return [
             'LoaiTin' => 'required',
-            'txtTieuDe' => 'required|min:3|unique:tintuc,TieuDe',
+            'txtTieuDe' => 'required|min:3',
             'txtTomTat' => 'required',
             'txtNoiDung' => 'required',
         ];
@@ -36,7 +36,6 @@ class TinTucRequest extends FormRequest
             'LoaiTin.required' => 'Bạn chưa chọn loại tin',
             'txtTieuDe.required' => 'Bạn chưa nhập tiêu đề',
             'txtTieuDe.min' => 'Tiêu đề quá ngắn',
-            'txtTieuDe.unique' => 'Tiêu đề đã tồn tại',
             'txtTomTat.required' => 'Bạn chưa nhập tóm tắt',
             'txtNoiDung.required' => 'Bạn chưa nhập nội dung',
         );

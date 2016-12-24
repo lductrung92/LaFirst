@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\TheLoai;
 use App\LoaiTin;
 use App\TinTuc;
+use App\Comment;
 use App\Http\Requests\TinTucRequest;
 
 class TinTucController extends Controller
@@ -57,11 +58,41 @@ class TinTucController extends Controller
     }
 
     public function getSua($id){
-        
+        $theloai = TheLoai::all();
+        $loaitin = LoaiTin::all();
+        $tintuc = TinTuc::find($id);
+        return view('admin.tintuc.sua',['theloai'=>$theloai, 'loaitin'=>$loaitin, 'tintuc'=>$tintuc]);
     }
 
-    public function postSua(){
+    public function postSua($id, TinTucRequest $request){
+        $tintuc = TinTuc::find($id);
+        $tintuc->TieuDe = $request->txtTieuDe;
+        $tintuc->TieuDeKhongDau = changeTitle($request->txtTieuDe);
+        $tintuc->idLoaiTin = $request->LoaiTin;
+        $tintuc->TomTat = $request->txtTomTat;
+        $tintuc->NoiDung = $request->txtNoiDung;
+        $tintuc->SoLuotXem = 0;
 
+        if($request->hasFile('fHinh'))
+        {
+            $file = $request->file('fHinh');
+            $duoi = $file->getClientOriginalExtension();
+            if($duoi != 'jpg' && $duoi != 'png' && $duoi != 'jpeg'){
+                return redirect('admin/tintuc/danhsach')->with('thongbao', 'File upload lên phải có định dạng sau jpg,png,jpeg');
+            }
+            $name = $file->getClientOriginalName();
+            $Hinh = str_random(4) . "_" . $name;
+            while(file_exists("upload/tintuc/" . $Hinh))
+            {
+                $Hinh = str_random(4) . "_" . $name;
+            }
+            $file->move("upload/tintuc/", $Hinh);
+            unlink("upload/tintuc/" . $tintuc->Hinh);
+            $tintuc->Hinh = $Hinh;
+        }
+        $tintuc->save();
+
+       return redirect('admin/tintuc/danhsach')->with('thongbao', 'Sữa thành công');
     }
 
     public function getXoa($id){
